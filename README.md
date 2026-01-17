@@ -1,127 +1,316 @@
-# claude-plugin-template
+# gh Plugin
 
-A ready-to-fork template for building a **Claude Code “plugin”** using:
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-Plugin-blueviolet)](https://github.com/anthropics/claude-code)
+[![CI](https://github.com/zircote/gh/actions/workflows/ci.yml/badge.svg)](https://github.com/zircote/gh/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-0.5.0-green.svg)](https://github.com/zircote/gh/releases)
 
-- **Claude Code project assets**: `.claude/commands`, `.claude/hooks`, `.claude/settings.json`
-- **MCP server** (Model Context Protocol) in **TypeScript** using stdio transport
-- **Team automation** in `.github/` (CI, templates, Copilot prompts/instructions)
+GitHub ecosystem integration with streamlined git workflows, Copilot coding agent configuration, and multi-CI migration tools.
 
-## Quickstart
-
-```bash
-npm install
-npm run typecheck
-npm run build
-```
-
-Run the MCP server locally:
+## Installation
 
 ```bash
-npm run dev
-# or
-npm run start
+claude plugin install zircote/gh
 ```
 
-## Fork checklist (rename it once)
+## Verify Installation
 
-- Rename the package in `package.json` and the server name/version in `src/index.ts`.
-- Update the `.mcp.json` server key (`mcpServers.<name>`) to match.
-
-## Using with Claude Code (recommended)
-
-1) Build the server:
+After installing, verify the commands and agent are available:
 
 ```bash
-npm run build
+# Test git workflow command (dry run)
+claude "/gh:prune"
+
+# Verify gh CLI is authenticated
+gh auth status
+
+# Test Copilot onboarding (shows help without modifying files)
+claude "What does the /gh:copilot-onboard command do?"
 ```
 
-2) Ensure `.mcp.json` exists at repo root (it does in this template):
+You should see the prune command show stale branches (if any) and confirmation that gh CLI is authenticated.
 
-```json
-{
-  "mcpServers": {
-    "claude-plugin-template": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["dist/index.js"],
-      "env": {}
-    }
-  }
-}
-```
+## Contents
 
-3) Add/enable the MCP server in Claude Code.
+| Component | Count | Description |
+|-----------|-------|-------------|
+| Commands | 12 | Git workflow and GitHub integration commands |
+| Agents | 1 | Copilot onboarding specialist |
+| Skills | 1 | GitHub ecosystem configuration |
 
-If you use the CLI, the flow is typically:
+## Commands
+
+### Git Workflow Commands
+
+| Command | Description | Arguments |
+|---------|-------------|-----------|
+| `/gh:cp` | Stage, commit, and push all changes | - |
+| `/gh:pr` | Create a pull request via `gh` CLI | `[to-branch] [from-branch]` |
+| `/gh:fr` | Fetch and rebase onto remote branch | `[remote] [branch]` |
+| `/gh:sync` | Full sync: fetch, rebase, push | `[remote] [branch]` |
+| `/gh:ff` | Fast-forward merge only | `[remote] [branch]` |
+| `/gh:prune` | Clean up stale local branches | `[--force]` |
+
+### Copilot, Migration & Review Commands
+
+| Command | Description | Arguments |
+|---------|-------------|-----------|
+| `/gh:copilot-onboard` | Configure repo for GitHub Copilot coding agent | `[repository-path]` |
+| `/gh:onboard` | Alias for copilot-onboard | `[repository-path]` |
+| `/gh:migrate` | Migrate multi-CI to GitHub Actions | `[--ci=TYPE]` |
+| `/gh:ci-assist` | Onboard repository to GitHub ecosystem | - |
+| `/gh:pr-fix` | Complete PR remediation workflow | `[pr-number]` |
+| `/gh:review-comments` | Process PR review comments with assessment & remediation | `[pr-number] [--auto\|--interactive]` |
+
+## Command Details
+
+### `/gh:cp` - Commit and Push
+
+Stages, commits, and pushes all changes with smart commit message generation:
 
 ```bash
-claude mcp add claude-plugin-template -- node dist/index.js
-claude mcp list
+/gh:cp
 ```
 
-Docs: https://code.claude.com/docs/en/mcp
+Features:
+- Reviews all changes for sensitive data (API keys, credentials)
+- Generates conventional commit messages (`feat:`, `fix:`, `refactor:`, etc.)
+- Splits new files and modifications into separate commits
+- Never adds AI attribution signatures
 
-## Using with Claude Desktop
+### `/gh:pr` - Create Pull Request
 
-Claude Desktop MCP servers are typically configured in `claude_desktop_config.json`.
-Common location (macOS): `~/Library/Application Support/Claude/claude_desktop_config.json`.
-Docs: https://modelcontextprotocol.io/docs/develop/connect-local-servers
-
-## What’s included
-
-### 1) MCP server (`src/index.ts`)
-
-This template exposes:
-- Tool: `hello({ name })` → returns “Hello, <name>!”
-- Resource: `template://readme`
-
-Add more tools/resources in `src/index.ts`.
-
-### 2) Claude Code commands (`.claude/commands/*`)
-
-Examples included:
-- `/setup` – install + build sanity check
-- `/mcp [dev|build|start]` – run the MCP server
-- `/github:pr-review <owner/repo#PR>` – review a PR with `gh`
-
-Reminder: nested folders create namespaces, e.g. `.claude/commands/github/pr-review.md` ⇒ `/github:pr-review`.
-Docs: https://code.claude.com/docs/en/slash-commands
-
-### 3) Claude Code hooks (`.claude/settings.json` + `.claude/hooks/*`)
-
-This template includes a minimal **PreToolUse** Bash guard hook that blocks obviously-dangerous shell commands.
-Docs: https://code.claude.com/docs/en/hooks
-
-### 4) “Skills” (`skills/*`)
-
-Put durable team guidance here: conventions, how-to, runbooks.
-
-### 5) GitHub automation (`.github/*`)
-
-- CI (`.github/workflows/ci.yml`) runs `npm ci`, `typecheck`, `build`.
-- Issue templates + PR template.
-- Copilot instructions and reusable prompts.
-
-## Developing new features
-
-### Add a new MCP tool
-
-1) Add `server.tool(...)` in `src/index.ts`.
-2) Run:
+Creates a pull request using the GitHub CLI:
 
 ```bash
-npm run typecheck
-npm run build
+/gh:pr                    # PR to main from current branch
+/gh:pr develop            # PR to develop from current branch
+/gh:pr main feature/auth  # PR to main from feature/auth
 ```
 
-### Add a new slash command
+Requires: `gh` CLI installed and authenticated
 
-Create: `.claude/commands/<name>.md`
+### `/gh:fr` - Fetch and Rebase
 
-Use YAML frontmatter to set `description` and restrict tools via `allowed-tools`.
+Fetches from remote and rebases current branch:
 
-## Security checklist
+```bash
+/gh:fr                    # Rebase onto origin/current-upstream
+/gh:fr upstream           # Rebase onto upstream/...
+/gh:fr origin main        # Rebase onto origin/main
+```
 
-- Never commit tokens or API keys.
-- Prefer `env` entries in `.mcp.json` and local overrides in `.claude/settings.local.json`.
-- Keep hooks fail-open unless you’re confident about payload compatibility.
+Includes conflict resolution guidance if rebase fails.
+
+### `/gh:sync` - Full Sync Cycle
+
+Complete synchronization: fetch, rebase, and push with confirmation:
+
+```bash
+/gh:sync
+/gh:sync origin main
+```
+
+Features:
+- Pre-flight checks for uncommitted changes
+- Shows incoming commits before rebasing
+- Confirms before pushing
+- Conflict resolution assistance
+
+### `/gh:ff` - Fast-Forward Only
+
+Updates branch via fast-forward merge (no history rewriting):
+
+```bash
+/gh:ff
+/gh:ff origin main
+```
+
+Fails gracefully if fast-forward isn't possible, offering alternatives.
+
+### `/gh:prune` - Clean Up Branches
+
+Removes stale local branches that have been merged or deleted on remote:
+
+```bash
+/gh:prune          # Dry run - shows what would be deleted
+/gh:prune --force  # Actually delete stale branches
+```
+
+### `/gh:copilot-onboard` - Copilot Configuration
+
+Configures a repository for GitHub Copilot coding agent:
+
+```bash
+/gh:copilot-onboard
+/gh:copilot-onboard /path/to/repo
+```
+
+Generates:
+- `.github/copilot-instructions.md` - Repository-wide instructions
+- `.github/workflows/copilot-setup-steps.yml` - Environment setup
+- `.github/instructions/*.instructions.md` - Scoped instructions
+
+Cross-references with existing `CLAUDE.md` to avoid duplication.
+
+### `/gh:migrate` - CI Migration
+
+Migrates from various CI systems to GitHub Actions:
+
+```bash
+/gh:migrate              # Auto-detect CI system
+/gh:migrate --ci=jenkins # Migrate from Jenkins
+```
+
+Supports: Jenkins, CircleCI, GitLab CI, Travis CI, Azure Pipelines, Bitbucket Pipelines, Concourse, Drone, TeamCity
+
+### `/gh:review-comments` - Process PR Review Comments
+
+Processes GitHub PR review comments with validity assessment, remediation, and response generation:
+
+```bash
+/gh:review-comments              # Current branch's PR, interactive mode
+/gh:review-comments 123          # Specific PR, interactive mode
+/gh:review-comments 123 --auto   # Auto-process with default thresholds
+/gh:review-comments --dry-run    # Preview actions without executing
+```
+
+**Flags:**
+- `--auto` - Non-interactive: auto-accept findings with >=85% confidence
+- `--interactive` - Prompt at each decision (default)
+- `--confidence=N` - Set auto-accept threshold (0-100, default: 85)
+- `--dry-run` - Show proposed actions without executing
+
+**Workflow:**
+
+1. **Fetches all review comments** from the PR
+2. **Categorizes** into: Code Review, Questions, Suggestions, Blockers, Approvals
+3. **Assesses validity** with confidence scoring (0-100%)
+4. **Prompts for decisions** (in interactive mode) or auto-processes
+5. **Remediates accepted findings** using appropriate specialist agents
+6. **Posts responses** to all comments with explanations
+7. **Resolves conversations** where appropriate
+
+## Agent
+
+### copilot-assistant
+
+GitHub Copilot coding agent onboarding specialist.
+
+**When to use:**
+- Configuring repositories for GitHub Copilot
+- Creating `copilot-instructions.md`
+- Setting up `copilot-setup-steps.yml` workflows
+- Aligning Copilot and Claude Code configurations
+
+**Invocation:**
+- Via `/gh:copilot-onboard` command
+- Direct agent call when discussing Copilot setup
+
+## Skill
+
+### github-ecosystem
+
+Generates comprehensive GitHub repository configuration.
+
+**Components generated:**
+- CI/CD workflows (ci.yml, release.yml, docker.yml)
+- Issue templates (bug report, feature request)
+- PR template with checklist
+- CODEOWNERS file
+- Dependabot configuration
+- Copilot instructions
+
+**Supported languages:**
+- Python (pyproject.toml detection)
+- Go (go.mod detection)
+- TypeScript (package.json + tsconfig.json detection)
+
+**Usage:**
+```bash
+# In conversation
+"Set up GitHub ecosystem for this Python project"
+
+# Or via trigger phrases
+"Add GitHub Actions to this repo"
+"Create issue templates"
+"Configure dependabot"
+```
+
+## File Structure
+
+```
+gh/
+├── .claude-plugin/
+│   └── plugin.json
+├── agents/
+│   └── copilot-assistant.md
+├── commands/
+│   ├── ci-assist.md
+│   ├── copilot-onboard.md
+│   ├── cp.md
+│   ├── ff.md
+│   ├── fr.md
+│   ├── migrate.md
+│   ├── onboard.md
+│   ├── pr-fix.md
+│   ├── pr.md
+│   ├── prune.md
+│   ├── review-comments.md
+│   └── sync.md
+├── skills/
+│   └── ecosystem/
+│       ├── SKILL.md
+│       ├── references/
+│       └── scripts/
+├── CHANGELOG.md
+├── LICENSE
+└── README.md
+```
+
+## Troubleshooting
+
+### `gh` CLI Not Found
+
+Install and authenticate the GitHub CLI:
+
+```bash
+# macOS
+brew install gh
+gh auth login
+
+# Linux
+sudo apt install gh
+gh auth login
+
+# Windows
+winget install GitHub.cli
+gh auth login
+```
+
+### Rebase Conflicts
+
+If `/gh:sync` or `/gh:fr` encounters conflicts:
+
+1. Resolve conflicts in each file (remove `<<<<<<<`, `=======`, `>>>>>>>` markers)
+2. Stage resolved files: `git add <file>`
+3. Continue: `git rebase --continue`
+4. Or abort: `git rebase --abort`
+
+### Push Rejected
+
+If push fails after rebase:
+
+1. Run `/gh:sync` again to incorporate new remote changes
+2. Or use `git push --force-with-lease` (only if you understand the implications)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+MIT

@@ -1,0 +1,29 @@
+{
+  "name": "gh",
+  "version": "0.5.0",
+  "description": "GitHub ecosystem integration with git workflows, Copilot configuration, and multi-CI migration",
+  "author": {
+    "name": "zircote",
+    "email": "zircote@gmail.com",
+    "url": "https://github.com/zircote"
+  },
+  "repository": "https://github.com/zircote/gh",
+  "license": "MIT",
+  "keywords": [
+    "github",
+    "copilot",
+    "git-workflow",
+    "ci-cd",
+    "actions",
+    "ecosystem",
+    "migration",
+    "commit",
+    "push",
+    "pull-request",
+    "rebase",
+    "branch",
+    "gh-cli",
+    "dependabot",
+    "codeowners"
+  ]
+}

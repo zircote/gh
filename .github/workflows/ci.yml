@@ -2,17 +2,40 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm run build
+
+      - name: Validate plugin.json
+        run: |
+          cat .claude-plugin/plugin.json | python3 -m json.tool > /dev/null
+          echo "plugin.json is valid JSON"
+
+      - name: Validate agent frontmatter
+        run: |
+          find agents -name "*.md" -type f | while read file; do
+            echo "Checking $file..."
+            head -1 "$file" | grep -q "^---" && echo "  Has frontmatter" || echo "  Warning: No frontmatter"
+          done
+
+      - name: Validate command structure
+        run: |
+          find commands -name "*.md" -type f | wc -l
+          echo "command files found"
+
+      - name: Validate skill structure
+        run: |
+          find skills -name "SKILL.md" -type f | wc -l
+          echo "SKILL.md files found"
+
+      - name: Count plugin components
+        run: |
+          echo "Agents: $(find agents -name '*.md' -type f 2>/dev/null | wc -l)"
+          echo "Commands: $(find commands -name '*.md' -type f 2>/dev/null | wc -l)"
+          echo "Skills: $(find skills -name 'SKILL.md' -type f 2>/dev/null | wc -l)"

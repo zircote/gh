@@ -1,20 +1,42 @@
-# Copilot instructions
+# Copilot Instructions
 
-You are working in a template repository for Claude Code + MCP servers.
+You are working in the gh plugin repository for Claude Code.
 
-## Priorities
+## Project Overview
 
-1. Keep changes small and reviewable.
-2. Prefer TypeScript and the official `@modelcontextprotocol/sdk`.
-3. Update documentation when you change developer-facing behavior.
+This is a Claude Code plugin providing GitHub ecosystem integration with:
+- 12 git workflow and GitHub integration commands
+- 1 Copilot onboarding agent
+- 1 GitHub ecosystem configuration skill
 
-## Commands
+## Plugin Structure
 
-- Build: `npm run build`
-- Typecheck: `npm run typecheck`
-- Run MCP server (dev): `npm run dev`
+```
+.claude-plugin/plugin.json  # Plugin manifest
+agents/                     # Copilot assistant agent
+commands/                   # 12 workflow commands
+skills/                     # GitHub ecosystem skill
+```
 
-## Security
+## Development Guidelines
 
-- Never hardcode tokens.
-- Prefer env vars in `.mcp.json` / Claude Desktop config.
+1. Follow Claude Code plugin standards
+2. Keep changes focused and reviewable
+3. Update CHANGELOG.md for user-facing changes
+4. Commands must follow markdown frontmatter format
+
+## Command Format
+
+```yaml
+---
+name: command-name
+description: Brief description
+allowed-tools: Bash, Read, Write
+---
+
+[Command instructions]
+```
+
+## Skill Format
+
+Skills use SKILL.md files with YAML frontmatter containing `name`, `description`, and optional `triggerPhrases`.
