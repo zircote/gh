@@ -5,12 +5,29 @@ description: >
   a repository for GitHub Copilot coding agent, create copilot-instructions.md, or set up
   copilot-setup-steps.yml workflows. Aligns Copilot configuration with existing Claude Code settings.
 model: inherit
-tools: Read, Write, Bash, Glob, Grep
+tools: Read, Write, Bash, Glob, Grep, Skill
 ---
 
 # Onboard Project to GitHub Copilot Coding Agent
 
 Analyze this repository and create GitHub Copilot coding agent configuration files that align with any existing Claude Code configuration (CLAUDE.md, .claude/ directory, etc.).
+
+## Before Starting: Check Related Memories
+
+Before onboarding, search mnemonic for existing configurations:
+
+```bash
+# Search for prior Copilot configurations
+rg -i "copilot\|copilot-instructions" ~/.claude/mnemonic/ --glob "*.memory.md"
+
+# Check for related project patterns
+rg -i "{PROJECT_NAME}" ~/.claude/mnemonic/ --glob "*decisions*" --glob "*.memory.md"
+```
+
+Use recalled context to:
+- Reference existing configuration patterns
+- Apply consistent settings across repositories
+- Build on prior decisions
 
 ## Goals
 
@@ -141,3 +158,17 @@ After analysis, create the files directly. Provide a summary of:
 - Keep instructions concise but complete (under 2 pages)
 - Reference external docs via links rather than duplicating content
 - If the project has secrets/env vars needed for tests, note that they must be added to the `copilot` GitHub Actions environment
+
+## Post-Onboarding: Capture to Mnemonic
+
+After creating Copilot configuration, capture:
+
+```bash
+/mnemonic:capture decisions "Copilot Setup: {REPO} - configuration complete"
+```
+
+Include:
+- Files created
+- Tech stack and package manager
+- Quality gates configured
+- Any CLAUDE.md alignment notes

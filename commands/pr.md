@@ -1,7 +1,7 @@
 ---
 description: Create, update, or manage pull requests (creates drafts by default)
 argument-hint: [to-branch] [--ready] [--update] [--web] [--fill]
-allowed-tools: Bash(*), Read, Glob, Grep
+allowed-tools: Bash(*), Read, Glob, Grep, Skill
 ---
 
 <help_check>
@@ -472,3 +472,25 @@ Not on a feature branch - Warn if on main/master
 - Use `gh pr view --web` to open any PR in browser
 - Use `gh pr checks` to see CI status
 - Use `gh pr merge` when ready to merge (after review)
+
+---
+
+# Memory Integration
+
+## Post-PR: Capture to Mnemonic
+
+After creating a PR, capture significant context:
+
+```bash
+/mnemonic:capture patterns "PR: {REPO} #{PR_NUMBER} - {TITLE}"
+```
+
+Include:
+- PR number and title
+- Target branch
+- Key changes summary
+
+This enables future recall for:
+- Tracking PR history for the project
+- Referencing related PRs
+- Understanding change patterns
