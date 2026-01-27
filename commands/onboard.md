@@ -1,8 +1,17 @@
 ---
-description: Onboard a repository for GitHub Copilot coding agent with configuration aligned to Claude Code
-argument-hint: "[repository-path]"
 allowed-tools: Read, Write, Glob, Grep, Bash
+argument-hint: '[repository-path]'
+description: Onboard a repository for GitHub Copilot coding agent with configuration
+  aligned to Claude Code
 ---
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 <help_check>
 ## Help Check

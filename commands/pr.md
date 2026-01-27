@@ -2,6 +2,12 @@
 description: Create, update, or manage pull requests (creates drafts by default)
 argument-hint: [to-branch] [--ready] [--update] [--web] [--fill]
 allowed-tools: Bash(*), Read, Glob, Grep, Skill
+allowed-tools:
+  - Bash
+  - Glob
+  - Grep
+  - Read
+  - Write
 ---
 
 <help_check>
@@ -57,9 +63,14 @@ SEE ALSO
 
 ---
 
-# Pull Request Management
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
 
-Create, update, or manage pull requests. **Creates draft PRs by default** to encourage code review workflows.
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 ## Arguments
 
@@ -475,22 +486,3 @@ Not on a feature branch - Warn if on main/master
 
 ---
 
-# Memory Integration
-
-## Post-PR: Capture to Mnemonic
-
-After creating a PR, capture significant context:
-
-```bash
-/mnemonic:capture patterns "PR: {REPO} #{PR_NUMBER} - {TITLE}"
-```
-
-Include:
-- PR number and title
-- Target branch
-- Key changes summary
-
-This enables future recall for:
-- Tracking PR history for the project
-- Referencing related PRs
-- Understanding change patterns

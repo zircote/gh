@@ -1,9 +1,9 @@
 ---
-description: Onboard a repository for GitHub Copilot coding agent with configuration aligned to Claude Code
-argument-hint: "[repository-path]"
 allowed-tools: Read, Write, Glob, Grep, Bash, Skill
+argument-hint: '[repository-path]'
+description: Onboard a repository for GitHub Copilot coding agent with configuration
+  aligned to Claude Code
 ---
-
 <help_check>
 ## Help Check
 
@@ -47,7 +47,14 @@ SEE ALSO
 
 ---
 
-Analyze this repository and configure it for GitHub Copilot coding agent, ensuring alignment with any existing Claude Code configuration.
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 ## Task
 
@@ -102,20 +109,5 @@ applyTo: "**/*.py"
 4. **Cross-reference with CLAUDE.md**: Don't duplicate—Copilot reads CLAUDE.md too. Add complementary info only.
 
 5. **Output summary**: What was detected, files created, any manual steps needed.
-
-## Memory Integration
-
-### Post-Onboarding: Capture to Mnemonic
-
-After configuring Copilot, capture the setup:
-
-```bash
-/mnemonic:capture decisions "Copilot Onboard: {REPO} - configuration created"
-```
-
-Include:
-- Files created (copilot-instructions.md, setup-steps.yml)
-- Tech stack detected
-- Any CLAUDE.md integration notes
 
 $ARGUMENTS

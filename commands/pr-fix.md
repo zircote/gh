@@ -1,8 +1,18 @@
 ---
-allowed-tools: Bash(gh:*), Bash(git:*), Bash(jq:*), Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
-argument-hint: "[pr-number] [--auto] [--confidence=95] [--skip-rebase] [--dry-run]"
-description: Complete PR remediation workflow - fetch comments, fix findings, rebase, commit, reply, resolve, and push
+allowed-tools: Bash(gh:*), Bash(git:*), Bash(jq:*), Read, Write, Edit, Glob, Grep,
+  Task, AskUserQuestion
+argument-hint: '[pr-number] [--auto] [--confidence=95] [--skip-rebase] [--dry-run]'
+description: Complete PR remediation workflow - fetch comments, fix findings, rebase,
+  commit, reply, resolve, and push
 ---
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 <help_check>
 ## Help Check

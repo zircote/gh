@@ -1,8 +1,18 @@
 ---
-allowed-tools: Bash(gh:*), Bash(git:*), Bash(jq:*), Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
-argument-hint: "[pr-number] [--auto | --interactive] [--confidence=N] [--dry-run]"
-description: Review GitHub PR comments, assess validity, remediate accepted findings, and respond to all comments with explanations
+allowed-tools: Bash(gh:*), Bash(git:*), Bash(jq:*), Read, Write, Edit, Glob, Grep,
+  Task, AskUserQuestion
+argument-hint: '[pr-number] [--auto | --interactive] [--confidence=N] [--dry-run]'
+description: Review GitHub PR comments, assess validity, remediate accepted findings,
+  and respond to all comments with explanations
 ---
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 <help_check>
 ## Help Check

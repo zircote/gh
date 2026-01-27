@@ -3,7 +3,23 @@ argument-hint: [--ci=TYPE] [--copilot-only] [--dry-run] [--interactive] [--batch
 description: Onboard repository to GitHub ecosystem with Copilot integration. Auto-detects and migrates CI/CD from Concourse, Jenkins, GitLab CI, CircleCI, Travis, Azure Pipelines, Bamboo, TeamCity, Drone, Buildkite, or infers external CI from artifacts. Creates GitHub Actions, Copilot config, issue/PR templates. Run in any repo for enterprise cloud migration.
 model: claude-opus-4-5-20251101
 allowed-tools: Bash(*), Read, Write, Edit, Glob, Grep, LS, WebFetch, Task, TodoWrite, TodoRead, AskUserQuestion
+allowed-tools:
+  - Bash
+  - Glob
+  - Grep
+  - Read
+  - Write
 ---
+
+
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 <help_check>
 ## Help Check

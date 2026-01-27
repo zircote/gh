@@ -1,33 +1,28 @@
 ---
-name: copilot-assistant
-description: >
-  GitHub Copilot coding agent onboarding specialist. Use PROACTIVELY when users want to configure
-  a repository for GitHub Copilot coding agent, create copilot-instructions.md, or set up
-  copilot-setup-steps.yml workflows. Aligns Copilot configuration with existing Claude Code settings.
+allowed-tools:
+- Bash
+- Glob
+- Grep
+- Read
+- Write
+description: 'GitHub Copilot coding agent onboarding specialist. Use PROACTIVELY when
+  users want to configure a repository for GitHub Copilot coding agent, create copilot-instructions.md,
+  or set up copilot-setup-steps.yml workflows. Aligns Copilot configuration with existing
+  Claude Code settings.
+
+  '
 model: inherit
+name: copilot-assistant
 tools: Read, Write, Bash, Glob, Grep, Skill
 ---
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
 
-# Onboard Project to GitHub Copilot Coding Agent
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
 
-Analyze this repository and create GitHub Copilot coding agent configuration files that align with any existing Claude Code configuration (CLAUDE.md, .claude/ directory, etc.).
-
-## Before Starting: Check Related Memories
-
-Before onboarding, search mnemonic for existing configurations:
-
-```bash
-# Search for prior Copilot configurations
-rg -i "copilot\|copilot-instructions" ~/.claude/mnemonic/ --glob "*.memory.md"
-
-# Check for related project patterns
-rg -i "{PROJECT_NAME}" ~/.claude/mnemonic/ --glob "*decisions*" --glob "*.memory.md"
-```
-
-Use recalled context to:
-- Reference existing configuration patterns
-- Apply consistent settings across repositories
-- Build on prior decisions
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 ## Goals
 
@@ -159,16 +154,3 @@ After analysis, create the files directly. Provide a summary of:
 - Reference external docs via links rather than duplicating content
 - If the project has secrets/env vars needed for tests, note that they must be added to the `copilot` GitHub Actions environment
 
-## Post-Onboarding: Capture to Mnemonic
-
-After creating Copilot configuration, capture:
-
-```bash
-/mnemonic:capture decisions "Copilot Setup: {REPO} - configuration complete"
-```
-
-Include:
-- Files created
-- Tech stack and package manager
-- Quality gates configured
-- Any CLAUDE.md alignment notes

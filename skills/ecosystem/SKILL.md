@@ -1,7 +1,27 @@
 ---
+allowed-tools:
+- Bash
+- Glob
+- Grep
+- Read
+- Write
+description: Generate comprehensive GitHub ecosystem configuration including CI/CD
+  workflows, issue templates, PR templates, CODEOWNERS, dependabot, and Copilot instructions.
+  Language-agnostic with Python, Go, and TypeScript support. Auto-detects project
+  language from pyproject.toml, go.mod, or package.json. Use when setting up GitHub
+  repos, adding CI/CD pipelines, creating issue/PR templates, configuring dependabot,
+  adding CODEOWNERS, setting up Copilot instructions, or enhancing existing projects
+  with GitHub tooling. Works on new or existing repositories with smart merging.
 name: github-ecosystem
-description: Generate comprehensive GitHub ecosystem configuration including CI/CD workflows, issue templates, PR templates, CODEOWNERS, dependabot, and Copilot instructions. Language-agnostic with Python, Go, and TypeScript support. Auto-detects project language from pyproject.toml, go.mod, or package.json. Use when setting up GitHub repos, adding CI/CD pipelines, creating issue/PR templates, configuring dependabot, adding CODEOWNERS, setting up Copilot instructions, or enhancing existing projects with GitHub tooling. Works on new or existing repositories with smart merging.
 ---
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
 
 # GitHub Ecosystem Configuration Generator
 
