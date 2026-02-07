@@ -1,5 +1,4 @@
 ---
-name: pr-fix
 allowed-tools: Bash(gh:*), Bash(git:*), Bash(jq:*), Read, Write, Edit, Glob, Grep,
   Task, AskUserQuestion
 argument-hint: '[pr-number] [--auto] [--confidence=95] [--skip-rebase] [--dry-run]'
