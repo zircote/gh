@@ -1,4 +1,5 @@
 ---
+name: migrate
 allowed-tools: Bash(*), Read, Write, Edit, Glob, Grep, LS, WebFetch
 argument-hint: [--ci=TYPE] [--copilot-only] [--dry-run] [--interactive]
 description: Onboard repository to GitHub ecosystem with Copilot integration. Auto-detects and migrates CI/CD from Concourse, Jenkins, GitLab CI, CircleCI, Travis, Azure Pipelines, Bamboo, TeamCity, Drone, Buildkite, or infers external CI from artifacts. Creates GitHub Actions, Copilot config, issue/PR templates. Run in any repo for enterprise cloud migration.

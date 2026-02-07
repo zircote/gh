@@ -12,7 +12,7 @@ description: Generate comprehensive GitHub ecosystem configuration including CI/
   repos, adding CI/CD pipelines, creating issue/PR templates, configuring dependabot,
   adding CODEOWNERS, setting up Copilot instructions, or enhancing existing projects
   with GitHub tooling. Works on new or existing repositories with smart merging.
-name: github-ecosystem
+name: ecosystem
 ---
 <!-- BEGIN MNEMONIC PROTOCOL -->
 ## Memory

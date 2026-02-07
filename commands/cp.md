@@ -1,4 +1,5 @@
 ---
+name: cp
 allowed-tools:
 - Bash
 - Glob

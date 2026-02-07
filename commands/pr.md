@@ -1,4 +1,5 @@
 ---
+name: pr
 description: Create, update, or manage pull requests (creates drafts by default)
 argument-hint: [to-branch] [--ready] [--update] [--web] [--fill]
 allowed-tools: Bash(*), Read, Glob, Grep, Skill

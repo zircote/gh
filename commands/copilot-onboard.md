@@ -1,4 +1,5 @@
 ---
+name: copilot-onboard
 allowed-tools: Read, Write, Glob, Grep, Bash, Skill
 argument-hint: '[repository-path]'
 description: Onboard a repository for GitHub Copilot coding agent with configuration

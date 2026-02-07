@@ -1,4 +1,5 @@
 ---
+name: fr
 allowed-tools:
 - Bash
 - Glob
