@@ -1893,7 +1893,7 @@ All generated workflows MUST follow this structure:
 
 ```yaml
 # FILE: .github/workflows/{name}.yml
-name: {Descriptive Name}
+name: ci-assist
 
 on:
   # Triggers matching source CI

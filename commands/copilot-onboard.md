@@ -77,7 +77,7 @@ Repository-wide instructions including:
 ### `.github/workflows/copilot-setup-steps.yml`
 Environment setup with job named `copilot-setup-steps`:
 ```yaml
-name: Copilot Setup Steps
+name: copilot-onboard
 on:
   workflow_dispatch:
   push:
