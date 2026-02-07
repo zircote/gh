@@ -1,3 +1,13 @@
+<!-- BEGIN MNEMONIC PROTOCOL -->
+## Memory
+
+Search first: `/mnemonic:search {relevant_keywords}`
+Capture after: `/mnemonic:capture {namespace} "{title}"`
+
+Run `/mnemonic:list --namespaces` to see available namespaces from loaded ontologies.
+<!-- END MNEMONIC PROTOCOL -->
+
+
 # GitHub Copilot Coding Agent Onboarding Kit
 
 Tools for Claude Code to configure existing projects for GitHub Copilot coding agent, maintaining alignment with your Claude Code standards.
