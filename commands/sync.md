@@ -1,5 +1,4 @@
 ---
-name: sync
 allowed-tools:
 - Bash
 - Glob
