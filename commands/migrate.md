@@ -524,7 +524,7 @@ Create `.github/workflows/` with:
 ### ci.yml (Primary CI)
 
 ```yaml
-name: CI
+name: migrate
 
 on:
   push:

@@ -1,4 +1,5 @@
 ---
+name: review-comments
 allowed-tools: Bash(gh:*), Bash(git:*), Bash(jq:*), Read, Write, Edit, Glob, Grep,
   Task, AskUserQuestion
 argument-hint: '[pr-number] [--auto | --interactive] [--confidence=N] [--dry-run]'

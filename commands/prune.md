@@ -1,4 +1,5 @@
 ---
+name: prune
 allowed-tools:
 - Bash
 - Glob
